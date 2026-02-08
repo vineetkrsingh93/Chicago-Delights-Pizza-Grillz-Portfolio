@@ -13,7 +13,9 @@ const navLinks = [
 ];
 
 const whatsappNumber = "919996553545";
-const whatsappMessage = encodeURIComponent("Hi, I want to know about Chicago Delights franchise.");
+const whatsappMessage = encodeURIComponent(
+  "Hi, I want to know about Chicago Delights franchise."
+);
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -37,11 +39,22 @@ export function Header() {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <a href="#home" className="flex items-center gap-2">
-            <span className="font-display text-3xl text-primary">CHICAGO</span>
-            <span className="font-display text-3xl text-secondary">DELIGHTS</span>
-          </a>
+
+          {/* 🔥 LOGO + BRAND */}
+          {/* LOGO + BRAND */}
+<a href="#home" className="flex items-center gap-3 whitespace-nowrap">
+  <img src="/logo.png" alt="logo" className="h-14 md:h-16 w-auto" />
+
+
+  <div className="flex items-center gap-2">
+    <span className="font-display text-2xl md:text-3xl font-bold text-primary leading-none">
+      CHICAGO
+    </span>
+    <span className="font-display text-2xl md:text-3xl font-bold text-secondary leading-none">
+      DELIGHTS
+    </span>
+  </div>
+</a>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
@@ -56,9 +69,10 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Theme Toggle & WhatsApp Button */}
+          {/* Desktop Right Buttons */}
           <div className="hidden lg:flex items-center gap-2">
             <ThemeToggle />
+
             <Button
               asChild
               className="bg-[#25D366] hover:bg-[#128C7E] text-white gap-2 shadow-lg"
@@ -74,9 +88,10 @@ export function Header() {
             </Button>
           </div>
 
-          {/* Mobile Theme Toggle & Menu Button */}
+          {/* Mobile Controls */}
           <div className="lg:hidden flex items-center gap-2">
             <ThemeToggle />
+
             <button
               className="p-2 text-foreground"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -104,6 +119,7 @@ export function Header() {
               {link.name}
             </a>
           ))}
+
           <Button
             asChild
             className="bg-[#25D366] hover:bg-[#128C7E] text-white gap-2 mt-4"
