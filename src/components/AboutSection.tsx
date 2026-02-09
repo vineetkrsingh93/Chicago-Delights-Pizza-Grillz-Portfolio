@@ -11,11 +11,13 @@ const services = [{
   icon: Megaphone,
   title: "Marketing Support",
   description: "Full marketing support including branding, social media, and promotions."
-}, {
+}, 
+{
   icon: Settings,
   title: "Franchise Setup",
   description: "End-to-end setup assistance from equipment to interiors."
-}, {
+},
+ {
   icon: TrendingUp,
   title: "Technology Systems",
   description: "Modern POS and inventory management systems included."

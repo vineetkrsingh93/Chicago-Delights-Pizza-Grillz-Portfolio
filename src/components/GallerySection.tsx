@@ -18,6 +18,10 @@ const galleryImages = [
   { src: sides, alt: "Delicious Sides", category: "food" },
   { src: outlet4, alt: "Fast Delivery", category: "outlet" },
   { src: combos, alt: "Family Combos", category: "food" },
+  { src: combos, alt: "Family Combos", category: "food" },
+  { src: combos, alt: "Family Combos", category: "food" },
+  { src: combos, alt: "Family Combos", category: "food" },
+  
 ];
 
 export function GallerySection() {
