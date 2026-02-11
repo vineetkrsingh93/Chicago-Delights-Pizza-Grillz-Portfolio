@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -30,7 +31,10 @@ export function Header() {
   }, []);
 
   return (
-    <header
+    <motion.header
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-background/95 backdrop-blur-md shadow-elevated border-b border-border"
@@ -40,56 +44,61 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
 
-          {/* 🔥 LOGO + BRAND */}
-          {/* LOGO + BRAND */}
-<a href="#home" className="flex items-center gap-3 whitespace-nowrap">
- <img 
-  src="/logo.png" 
-  alt="logo" 
-  class="h-14 md:h-[8em] w-auto"
-/>
+          {/* LOGO */}
+          <motion.a
+            href="#home"
+            className="flex items-center gap-3 whitespace-nowrap"
+            whileHover={{ scale: 1.05 }}
+          >
+            <img
+              src="/logo.png"
+              alt="logo"
+              className="h-14 md:h-[8em] w-auto"
+            />
 
+            <div className="flex items-center gap-2">
+              <span className="font-display text-2xl md:text-3xl font-bold text-primary leading-none">
+                CHICAGO
+              </span>
+              <span className="font-display text-2xl md:text-3xl font-bold text-secondary leading-none">
+                DELIGHTS
+              </span>
+            </div>
+          </motion.a>
 
-  <div className="flex items-center gap-2">
-    <span className="font-display text-2xl md:text-3xl font-bold text-primary leading-none">
-      CHICAGO
-    </span>
-    <span className="font-display text-2xl md:text-3xl font-bold text-secondary leading-none">
-      DELIGHTS
-    </span>
-  </div>
-</a>
-
-          {/* Desktop Navigation */}
+          {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
+              <motion.a
                 key={link.name}
                 href={link.href}
+                whileHover={{ y: -2 }}
                 className="text-foreground/80 hover:text-primary transition-colors font-medium"
               >
                 {link.name}
-              </a>
+              </motion.a>
             ))}
           </nav>
 
-          {/* Desktop Right Buttons */}
+          {/* Desktop Right */}
           <div className="hidden lg:flex items-center gap-2">
             <ThemeToggle />
 
-            <Button
-              asChild
-              className="bg-[#25D366] hover:bg-[#128C7E] text-white gap-2 shadow-lg"
-            >
-              <a
-                href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
-                target="_blank"
-                rel="noopener noreferrer"
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                asChild
+                className="bg-[#25D366] hover:bg-[#128C7E] text-white gap-2 shadow-lg"
               >
-                <MessageCircle className="w-5 h-5" />
-                WhatsApp
-              </a>
-            </Button>
+                <a
+                  href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  WhatsApp
+                </a>
+              </Button>
+            </motion.div>
           </div>
 
           {/* Mobile Controls */}
@@ -107,38 +116,44 @@ export function Header() {
       </div>
 
       {/* Mobile Menu */}
-      <div
-        className={`lg:hidden absolute top-20 left-0 right-0 bg-background/95 backdrop-blur-md border-b border-border transition-all duration-300 ${
-          isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
-        }`}
-      >
-        <nav className="container mx-auto px-4 py-6 flex flex-col gap-4">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-foreground/80 hover:text-primary transition-colors font-medium py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {link.name}
-            </a>
-          ))}
-
-          <Button
-            asChild
-            className="bg-[#25D366] hover:bg-[#128C7E] text-white gap-2 mt-4"
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="lg:hidden absolute top-20 left-0 right-0 bg-background/95 backdrop-blur-md border-b border-border"
           >
-            <a
-              href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MessageCircle className="w-5 h-5" />
-              WhatsApp Us
-            </a>
-          </Button>
-        </nav>
-      </div>
-    </header>
+            <nav className="container mx-auto px-4 py-6 flex flex-col gap-4">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-foreground/80 hover:text-primary transition-colors font-medium py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.name}
+                </a>
+              ))}
+
+              <Button
+                asChild
+                className="bg-[#25D366] hover:bg-[#128C7E] text-white gap-2 mt-4"
+              >
+                <a
+                  href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  WhatsApp Us
+                </a>
+              </Button>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 }
